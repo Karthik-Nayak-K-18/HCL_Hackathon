@@ -12,7 +12,6 @@ defaults:
 
 jobs:
   terraform:
-    name: Plan / Apply
     runs-on: ubuntu-22.04
     defaults:
       run:
