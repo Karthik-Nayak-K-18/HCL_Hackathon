@@ -12,11 +12,17 @@ defaults:
 
 jobs:
   terraform:
-   runs-on: ubuntu:22.04
-
+    name: Plan / Apply
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: terraform
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
