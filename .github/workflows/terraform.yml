@@ -2,9 +2,11 @@ name: Terraform Deploy
 
 on:
   push:
+    branches:
+      - dev
     paths:
       - 'terraform/**'
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual trigger (e.g., for UI edits)
 
 jobs:
   terraform:
@@ -37,5 +39,6 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/dev'
+        # Only apply on pushes to dev branch (not on manual/PR runs)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
         run: terraform apply -auto-approve
