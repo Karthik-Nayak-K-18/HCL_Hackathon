@@ -18,3 +18,4 @@ EXPOSE 3001
 
 # Define entrypoint (Lambda will invoke this)
 CMD ["node", "appointment-service.js"]
+
