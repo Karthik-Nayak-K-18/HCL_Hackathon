@@ -1,0 +1,32 @@
+name: Build & Push Appointment Service
+
+on:
+  push:
+    paths:
+      - 'microservices/appointment-service/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: 872515256128.dkr.ecr.ap-south-1.amazonaws.com
+          ECR_REPO_NAME: appointment-service
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPO_NAME:latest ./microservices/appointment-service
+          docker push $ECR_REGISTRY/$ECR_REPO_NAME:latest
