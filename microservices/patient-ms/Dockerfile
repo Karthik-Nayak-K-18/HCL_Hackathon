@@ -18,3 +18,4 @@ EXPOSE 3000
 
 # Define entrypoint (Lambda will invoke this)
 CMD ["node", "patient-service.js"]
+
