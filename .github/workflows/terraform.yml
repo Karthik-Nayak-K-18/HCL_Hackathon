@@ -10,7 +10,7 @@ on:
 
 jobs:
   terraform:
-    name: Terraform Plan & Apply
+    name: Terraform Plan & Apply/destroy
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -38,6 +38,8 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/dev'
-        run: terraform apply -auto-approve
+      #- name: Terraform Apply
+       # if: github.ref == 'refs/heads/dev'
+        #run: terraform apply -auto-approve
+      -  name: terraform destroy
+         run: terraform destory
